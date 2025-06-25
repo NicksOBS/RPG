@@ -5,7 +5,7 @@
 
 using namespace std;
 
-class Esqueleto : public Entidade{
+class Esqueleto : public Inimigo{
     public:
         Esqueleto();
 

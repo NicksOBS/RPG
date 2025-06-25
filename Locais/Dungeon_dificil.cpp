@@ -1,4 +1,4 @@
-#include "Dungeon_dificil.h"
+/*#include "Dungeon_dificil.h"
 
 DungeonDificil::DungeonDificil(){
     tipo = DIFICIL; 
@@ -10,4 +10,4 @@ DungeonDificil::DungeonDificil(){
 
 float DungeonDificil::get_dungeon_recompensa(){
     return recompensa*multiplicador;
-}
+}*/

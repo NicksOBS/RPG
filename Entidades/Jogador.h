@@ -29,6 +29,7 @@ class Jogador{
         bool mochila_vazia()const{ return mochila.inventario_vazio();}
         bool mochila_remover(Item& item){ mochila.item_remover(item); }
         bool mochila_inserir(Item& item){ return mochila.item_inserir(item); }
+        bool mochila_cheia()const{ return mochila.inventario_cheio();}
         void mochila_mostrar(){ mochila.inventario_mostrar(); }
 };
 

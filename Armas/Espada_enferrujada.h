@@ -1,6 +1,6 @@
 #ifndef ESPADA_ENFERRUJADA_H
 #define ESPADA_ENFERRUJADA_H
-#include "Arma.h"
+#include "../Itens/Item.h"
 
 class Espada_enferrujada : public Arma{
     public:

@@ -1,4 +1,4 @@
-#include "Dungeon_normal.h"
+/*#include "Dungeon_normal.h"
 
 DungeonNormal::DungeonNormal(){
     tipo = NORMAL; 
@@ -10,4 +10,4 @@ DungeonNormal::DungeonNormal(){
 
 float DungeonNormal::get_dungeon_recompensa(){
     return recompensa*multiplicador;
-}
+}*/

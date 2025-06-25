@@ -39,7 +39,7 @@ void mostrar_status_batalha(Jogador& player, Entidade& inimigo){ //recebe um jog
     cout <<"ATAQUE: " << player.get_jogador_classe()->get_ataqueBase() << "\t\t\tATAQUE: " << inimigo.get_ataqueBase() << endl;
 }
 
-void batalha(Jogador& player, Dungeon& dungeon){ 
+/*void batalha(Jogador& player, Dungeon& dungeon){ 
     bool p_turno = true, d_turno = false; // o jogador começa jogando 
     int turno = 1;
     while(player.get_jogador_classe()->get_vidaBase() > 0 && dungeon.get_adversario()->get_vidaBase() > 0){
@@ -58,13 +58,84 @@ void batalha(Jogador& player, Dungeon& dungeon){
         }
         system("cls"); //LIMPA A TELA DEPOIS DE CADA TURNO
     }
+}*/
+
+void batalha(Jogador& player, Dungeon& dungeon) {
+    bool p_turno = true, d_turno = false;
+    int turno = 1;
+
+    while (player.get_jogador_classe()->get_vidaBase() > 0 &&
+           dungeon.get_adversario()->get_vidaBase() > 0) 
+    {
+        cout << "\t\tTURNO: " << turno << endl;
+        mostrar_status_batalha(player, *dungeon.get_adversario());
+
+        if (p_turno) {
+            cout << "Voce ataca!\n";
+            int dano = player.get_jogador_classe()->Dano_ataque(*dungeon.get_adversario());
+            dungeon.get_adversario()->debuffVida(dano);
+            cout << "Causou " << dano << " de dano.\n";
+            system("pause");
+            p_turno = false;
+            d_turno = true;
+        }
+
+        if (d_turno) {
+            cout << "O inimigo ataca!\n";
+            int dano = dungeon.get_adversario()->Dano_ataque(*player.get_jogador_classe());
+            player.get_jogador_classe()->debuffVida(dano);
+            cout << "Você sofreu " << dano << " de dano.\n";
+            system("pause");
+            p_turno = true;
+            d_turno = false;
+        }
+
+        if (dungeon.get_adversario()->get_vidaBase() <= 0) {
+            cout << "\n Voce venceu a batalha!\n";
+            break;
+        }
+
+        if (player.get_jogador_classe()->get_vidaBase() <= 0) {
+            cout << "\n Voce foi derrotado...\n";
+            break;
+        }
+
+        turno++;
+        system("cls");
+    }
 }
+
+void explorar_dungeon(Jogador& player, DungeonFacil& dungeon) {
+    while (!dungeon.dungeon_concluida()) {
+        system("cls");
+        cout << "\n=====================\n";
+        dungeon.get_sala_atual()->mostrar_opcoes();
+
+        if (dungeon.get_sala_atual()->inimigo != nullptr) {
+            cout << "\nInimigo encontrado: " << dungeon.get_sala_atual()->inimigo->get_entidade_nome() << "\n";
+            cout << "Iniciando batalha...\n";
+            batalha(player, *dungeon.get_sala_atual()->inimigo);
+            dungeon.get_sala_atual()->inimigo = nullptr;
+        }
+
+        if (dungeon.get_sala_atual()->temChefe) {
+            cout << "\nVocê derrotou o chefe da dungeon! Parabéns!\n";
+            break;
+        }
+
+        cout << "\nEscolha seu caminho:\n";
+        int opcao;
+        cin >> opcao;
+        dungeon.mover_para_sala(opcao);
+    }
+}
+
 
 void inicio(){
     cout << "";
 }
 
-void cidade(Jogador& player){
+void cidade(Jogador& player, vector<Item> mercado){
     cout << "Voce esta na cidade, aqui voce pode se recuperar de suas batalhas ou visitar nossos mercados, talvez encontre algo que te ajude nas suas proximas batalhas." << endl; //mensagem explicando oq pode fazer na cidade
     cout << "Onde voce deseja ir?" << endl << "1 - Mercado" << endl << "2 - Estalagem" << endl << "3 - Continuar" << endl;
     int escolha;
@@ -76,11 +147,45 @@ void cidade(Jogador& player){
         switch(escolha){
             case 1: //mercado 
                 do{
+                    cout << "Digite o numero correspondente do item que deseja comprar. Ou digite X para sair do mercado" << endl;  
+                    mostrar_itens_mercado(mercado);
                     switch (item){
                         case 1:
-                            /* code */
+                            if(player.get_jogador_dinheiro() >= mercado.at(0).get_preco() && !player.mochila_cheia()){
+                                player.set_jogador_dinheiro(player.get_jogador_dinheiro() - mercado.at(0).get_preco());
+                                player.mochila_inserir(mercado.at(0));
+                                mercado.erase(mercado.begin());//talvez nao tirar os itens do mercado (mercado ter itens infinitos)
+                            }
+                            else{
+                                cout << "Voce nao pode comprar esse item." << endl;
+                            }
+                            system("cls");
                             break;
                         
+                        case 2:
+                            if(player.get_jogador_dinheiro() >= mercado.at(1).get_preco() && !player.mochila_cheia()){
+                                player.set_jogador_dinheiro(player.get_jogador_dinheiro() - mercado.at(1).get_preco());
+                                player.mochila_inserir(mercado.at(1));
+                                mercado.erase(mercado.begin()+1);
+                            }
+                            else{
+                                cout << "Voce nao pode comprar esse item." << endl;
+                            }
+                            system("cls");
+                            break;
+
+                        case 3:
+                            if(player.get_jogador_dinheiro() >= mercado.at(2).get_preco() && !player.mochila_cheia()){
+                                player.set_jogador_dinheiro(player.get_jogador_dinheiro() - mercado.at(2).get_preco());
+                                player.mochila_inserir(mercado.at(2));
+                                mercado.erase(mercado.begin()+2);
+                            }
+                            else{
+                                cout << "Voce nao pode comprar esse item." << endl;
+                            }
+                            system("cls");
+                            break;
+
                         default:
                             break;
                     }
