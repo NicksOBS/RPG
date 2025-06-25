@@ -58,7 +58,8 @@ int main() {
 
         cidade();
 
-        cout << ""
+        cout << "\nOs murmdurios na cidade falam de uma criatura abissal que infesta os esgotos: o Rei Rato. Sua presenca ameca Leyndell. Aventure-se na Dungeon Facil e purifique este mal!" << endl;
+        
         while (!dungeon.dungeon_concluida()) {
             Sala* sala = dungeon.get_sala_atual();
             cout << "\nVoce esta em: " << sala->descricao << endl;

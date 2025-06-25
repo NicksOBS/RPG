@@ -25,6 +25,7 @@ class Jogador{
         Entidade* get_jogador_classe()const{ return classe; }
         string get_jogador_classe_nome()const{ return classe->get_entidade_nome(); }
         int get_jogador_dinheiro()const{ return dinheiro; }
+        Inventario get_jogador_mochila()const{ return mochila;}
         void set_jogador_dinheiro(int valor){ dinheiro += valor; }
         bool mochila_vazia()const{ return mochila.inventario_vazio();}
         bool mochila_remover(Item& item){ mochila.item_remover(item); }
