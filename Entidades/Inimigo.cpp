@@ -1,7 +1,7 @@
 #include "Inimigo.h"
 #include <stdexcept>
 
-int Inimigo::ataque() const {
+float Inimigo::ataque() const {
     return ataqueBase * ((2 + rand() % 9) / 10.0); // entre 20% e 100% do ataqueBase
 }
 

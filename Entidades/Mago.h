@@ -16,7 +16,7 @@ class Mago : public Entidade{
         int get_vidaMaxima()const{return vidaMaxima;}
         string get_armaEquipada_nome()const{return arma->get_nome_arma();}
         void equipar_arma(Arma* eqp)override{arma = eqp;}
-        int ataque()const;
+        float ataque()const;
         int Dano_ataque(Entidade&)const;
         void receber_dano(int)override;
         void buffVida(int vida)override{ vidaBase += vida;};

@@ -37,7 +37,7 @@ public:
     virtual ~Inimigo() = default;
 
     // Implementação dos métodos obrigatórios
-    int ataque() const override;
+    float ataque() const override;
     int Dano_ataque(Entidade&) const override;
     void receber_dano(int dano) override;
     void buffVida(int vida) override;

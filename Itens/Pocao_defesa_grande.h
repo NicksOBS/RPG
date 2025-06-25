@@ -5,10 +5,10 @@
 class Pocao_defesa_grande : public Pocao{
     public:
         Pocao_defesa_grande() : Pocao{"Pocao de defesa grande", 50, 30}{}; //+50 de defesa, 30 moedas de preço
-        string get_pocao_nome()const{ return item_nome;};
-        int get_pocao_efeito()const{ return efeito;};
-        int get_pocao_preco()const{return item_preco;};
-        void usar_pocao(Jogador& player){player.get_jogador_classe()->buffDefesa(get_pocao_efeito());};
+        string get_pocao_nome()override{ return item_nome;};
+        int get_pocao_efeito()override{ return efeito;};
+        int get_preco()override{return item_preco;};
+        int usar_pocao(Jogador&)override;
 };
 
-#endif POCAO_DEFESA_GRANDE_H
+#endif

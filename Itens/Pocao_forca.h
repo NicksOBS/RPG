@@ -5,10 +5,10 @@
 class Pocao_forca : public Pocao{
     public:
         Pocao_forca() : Pocao{"Pocao de forca", 20, 10}{}; //+20 de força, 10 moedas de preço
-        string get_pocao_nome()const{ return item_nome;};
-        int get_pocao_efeito()const{ return efeito;};
-        int get_pocao_preco()const{return item_preco;};
-        void usar_pocao(Jogador& player){player.get_jogador_classe()->buffDano(get_pocao_efeito());};
+        string get_pocao_nome()override{ return item_nome;};
+        int get_pocao_efeito()override{ return efeito;};
+        int get_preco()override{return item_preco;};
+        int usar_pocao(Jogador&)override;
 };
 
-#endif POCAO_FORCA_H
+#endif

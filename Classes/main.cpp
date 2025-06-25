@@ -5,19 +5,22 @@
 #include "../Outros/Inventario.h"
 #include "../Entidades/Jogador.h"
 #include "../Armas/Arma.h"
-#include "../Entidades/Guerreiro.h"
-#include "../funcoes.h"
-#include "../Entidades/Esqueleto.h"
 #include "../Locais/Dungeon.h"
 #include "../Locais/Dungeon_facil.h"
+#include "../Locais/Dungeon_normal.h"
+#include "../Locais/Dungeon_dificil.h"
+#include "../Entidades/Guerreiro.h"
+#include "../Funcoes.h"
+#include "../Entidades/Esqueleto.h"
 
 using namespace std;
 int main() {
-    string nome;
+    /*string nome;
     int escolha_classe;
 
     cout << "Digite seu nome, Fragmentado: ";
     cin >> nome;
+
 
     cout << "Bem-vindo(a) a Leyndell, " << nome << "!" << endl;
     cout << "Um lamento ecoa pelos Confins Interiores de Eldoria, uma terra ha muito esquecida, dilacerada por calamidades e ecos de uma gloria desvanecida." << endl;
@@ -56,14 +59,14 @@ int main() {
     cidade();
     while (!dungeon.dungeon_concluida()) {
         Sala* sala = dungeon.get_sala_atual();
-        cout << "\nVocê está em: " << sala->descricao << endl;
+        cout << "\nVoce esta em: " << sala->descricao << endl;
 
         if (sala->inimigo != nullptr) {
             cout << "Um inimigo aparece: " << sala->inimigo->getNome() << "!" << endl;
             
             sala->inimigo->receberDano(jogador->ataque());
             if (sala->inimigo->getVida() <= 0) {
-                cout << "Você derrotou o inimigo!" << endl;
+                cout << "Voce derrotou o inimigo!" << endl;
                 delete sala->inimigo;
                 sala->inimigo = nullptr;
             }
@@ -78,18 +81,48 @@ int main() {
             cin >> escolha;
             dungeon.mover_para_sala(escolha);
         } else {
-            cout << "Não há mais caminhos disponíveis." << endl;
+            cout << "Nao ha mais caminhos disponiveis." << endl;
             break;
         }
     }
 
-    cout << "Parabéns! Você concluiu a dungeon!" << endl;
+    cout << "Parabens! Voce concluiu a primeira dungeon!" << endl;
+    
+    eventoaleatorio();
 
     cidade();
+
+
 
     
 
 
-    return 0;
+    return 0;*/
+
+    Entidade *m = new Mago();
+    Entidade *g = new Guerreiro();
+    Jogador p1{"Jogador 1", m};
+    Jogador p2{"Jogador 2", g}; 
+
+    cout << " batalha "<< endl;
+    cout << "Jogador 1 vs Esqueleto" << endl;
+    cout << endl;
+
+    //Inimigo* esqueleto_inimigo = new Esqueleto();
+
+    //batalha(p1, *esqueleto_inimigo);
+
+    //vector <Item> mercado = inicializa_mercado();
+    //p1.set_jogador_dinheiro(100);
+    //cidade(p1, mercado);
+
+    //Dungeon* dungeon = new DungeonFacil();
+    //explorar_dungeon(p1, *dungeon);
+    //delete dungeon;
+
+    DungeonFacil dungeon;
+    explorar_dungeon(p1, dungeon);
+
+
 }
 

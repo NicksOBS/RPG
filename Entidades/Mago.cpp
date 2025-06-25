@@ -1,16 +1,16 @@
 #include "Mago.h"
 #include <stdexcept>
-
+#include <iostream>
 using namespace std;
 
-Mago::Mago(): Entidade{100, 4, 50}{
+Mago::Mago(): Entidade{25, 4, 3}{ //vida, ataque, defesa
     Entidade_nome = "Mago";
     arma = new Graveto_do_aprendiz();
     entidade_tipo = MAGO;
 }
 
-int Mago::ataque()const{
-    return ataqueBase * ((5+(rand()%9))); //Mago pode dar entre 50 e 130% de seu dano base
+float Mago::ataque()const{ //Mago pode dar entre 50 e 130% de seu dano base
+    return ataqueBase *((50+(rand()%91))/100.0f);;
 }
 
 int Mago::Dano_ataque(Entidade& vitima)const{

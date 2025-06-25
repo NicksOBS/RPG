@@ -9,7 +9,7 @@ Guerreiro::Guerreiro(): Entidade{120, 16, 55}{ //120 de vida, 16 de atq e 55 de 
     entidade_tipo = GUERREIRO;
 }
 
-int Guerreiro::ataque()const{
+float Guerreiro::ataque()const{
     return ataqueBase * ((2+rand()%11)/10); //Guerreiro pode dar entre 20 e 110% de seu dano base
 }
 

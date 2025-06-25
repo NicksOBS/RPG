@@ -7,7 +7,7 @@ class ReiRato : public Inimigo {
 public:
     ReiRato();
 
-    int ataque() const override;
+    float ataque() const override;
     int Dano_ataque(Entidade& vitima) const override;
     void receber_dano(int dano) override;
 

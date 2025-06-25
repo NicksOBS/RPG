@@ -3,7 +3,7 @@
 #include <string>
 #include "../Itens/Item.h"
 
-enum EntidadePermitida{MAGO, GUERREIRO};
+enum EntidadePermitida{MAGO, GUERREIRO, NADA};
 
 class Arma : public Item{
     protected:

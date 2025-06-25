@@ -5,7 +5,7 @@ CavaleiroCorrompido::CavaleiroCorrompido() : Inimigo{35, 8, 6} {
     Entidade_nome = "Cavaleiro Corrompido";
 }
 
-int CavaleiroCorrompido::ataque() const {
+float CavaleiroCorrompido::ataque() const {
     return ataqueBase * ((5 + rand() % 11) / 10.0); // 50% a 150%
 }
 

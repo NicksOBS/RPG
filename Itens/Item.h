@@ -9,7 +9,7 @@ class Item{
     public:
         Item(string n, int p) : item_nome{n}, item_preco{p}{}
         ~Item(){}
-        virtual int get_preco() const = 0;
+        virtual int get_preco() const{return item_preco;};
         virtual string get_item_nome()const{return item_nome;}
 };
 

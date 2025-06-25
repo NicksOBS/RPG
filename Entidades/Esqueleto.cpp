@@ -1,11 +1,14 @@
 #include "Esqueleto.h"
 #include <stdexcept>
-Esqueleto::Esqueleto(): Entidade{10, 4, 2}{//Iniciado como valores de teste (vida, ataque, defesa)
+#include "Esqueleto.h"
+#include "../Armas/Espada_enferrujada.h"
+#include <stdexcept>
+Esqueleto::Esqueleto(): Inimigo{10, 4, 2}{//Iniciado como valores de teste (vida, ataque, defesa)
     Entidade_nome = "Esqueleto";
-    //arma = new ARMA DO ESQUELETO(); LEMBRAR DE CRIAR A ARMA E ADICIONAR O .H 
-} 
+    arma = new Espada_enferrujada();
+}
 
-int Esqueleto::ataque()const{
+float Esqueleto::ataque()const{
     return ataqueBase * ((2+rand()%11)/10); //BALANCEAR
 }
 

@@ -15,7 +15,7 @@ class Esqueleto : public Inimigo{
         int get_ataqueBase()const{return ataqueBase;}
         int get_vidaMaxima()const{return vidaMaxima;}
         string get_armaEquipada_nome()const{return arma->get_nome_arma();}
-        int ataque()const;
+        float ataque()const;
         int Dano_ataque(Entidade&)const;
         void receber_dano(int);
         void buffVida(int vida)override{ vidaBase += vida;};

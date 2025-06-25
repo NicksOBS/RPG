@@ -22,7 +22,7 @@ class Entidade{
         int get_defesaBase()const{return defesaBase;}
         int get_vidaMaxima()const{return vidaMaxima;}
         string get_armaEquipada_nome()const{return arma->get_nome_arma();}
-        virtual int ataque()const = 0; //calcula o ataque base, utilizando o parametro ataqueBase e porcentagens desse dano
+        virtual float ataque()const = 0; //calcula o ataque base, utilizando o parametro ataqueBase e porcentagens desse dano
         virtual int Dano_ataque(Entidade&)const = 0; //calcula o dano no adversario com base na funcao ataque, arma, defesaBase do oponente e armadura (parametro a ser add)
         virtual void receber_dano(int) = 0;
         virtual void equipar_arma(Arma*){}

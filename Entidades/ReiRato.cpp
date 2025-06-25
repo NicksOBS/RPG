@@ -5,7 +5,7 @@ ReiRato::ReiRato() : Inimigo{20, 5, 4} {
     Entidade_nome = "Rei Rato";
 }
 
-int ReiRato::ataque() const {
+float ReiRato::ataque() const {
     return ataqueBase * ((4 + rand() % 9) / 10.0); // 40% a 120%
 }
 

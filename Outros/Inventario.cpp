@@ -22,9 +22,15 @@ bool Inventario::item_remover(Item& item){
 
 void Inventario::inventario_mostrar(){
     cout << "\tINVENTARIO:" << endl;
+    if(inventario_vazio()){
+        cout << "VAZIO" << endl;
+        return;
+    }
     int i = 1;
     for (vector<Item*>::iterator it = mochila.begin() ; it != mochila.end(); ++it){
         cout << i << " - " << (*it)->get_item_nome() << endl;
         i++;
-    }  
+    }
+    if(inventario_cheio())
+        cout << "(CHEIO)" << endl;  
 }

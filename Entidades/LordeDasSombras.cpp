@@ -5,7 +5,7 @@ LordeDasSombras::LordeDasSombras() : Inimigo{60, 12, 8} {
     Entidade_nome = "Lorde das Sombras";
 }
 
-int LordeDasSombras::ataque() const {
+float LordeDasSombras::ataque() const {
     return ataqueBase * ((7 + rand() % 11) / 10.0); // 70% a 170%
 }
 

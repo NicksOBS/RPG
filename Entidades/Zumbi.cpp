@@ -6,7 +6,7 @@ Zumbi::Zumbi() : Inimigo{15, 3, 5} { // Vida alta, defesa alta, ataque baixo
     // arma = new ... (se quiser criar uma arma específica depois)
 }
 
-int Zumbi::ataque() const {
+float Zumbi::ataque() const {
     return ataqueBase * ((3 + rand() % 9) / 10.0); // Entre 30% e 90%
 }
 

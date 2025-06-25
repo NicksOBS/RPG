@@ -7,7 +7,7 @@ class Goblin : public Inimigo {
 public:
     Goblin();
 
-    int ataque() const override;
+    float ataque() const override;
     int Dano_ataque(Entidade& vitima) const override;
     void receber_dano(int dano) override;
 
