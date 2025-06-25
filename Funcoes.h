@@ -81,4 +81,22 @@ void cidade(Jogador& player){
         }
     }while(flag);
 }
+
+void eventoAleatorio(Jogador& player){
+    srand(time(NULL));
+    if(rand()%101 > 80){ //20%
+        cout << "" << endl;//
+        if(player.get_jogador_dinheiro() < 5){
+            cout << "" << endl;//
+            return;
+        }
+        else{
+            player.set_jogador_dinheiro(player.get_jogador_dinheiro()*0.75);
+            cout << "" << endl;
+            return;
+        }
+    }
+    else
+        return;
+}
 #endif
