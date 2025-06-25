@@ -36,6 +36,7 @@ void mostrar_itens_mercado(vector<Item>& mercado){
         cout << i << ". " << item.get_item_nome() << " (" << item.get_preco() << ")" << endl;
         i++;
     }
+    cout << "7. Sair" << endl;
 }
 
 void mostrar_status_jogador(Jogador& player){
@@ -97,9 +98,15 @@ bool batalha(Jogador& player, Inimigo& inimigo) {
 
         if (d_turno) {
             cout << "O inimigo ataca!\n";
-            int dano = inimigo.Dano_ataque(*player.get_jogador_classe());
-            player.get_jogador_classe()->receber_dano(dano);
-            cout << "Voce sofreu " << dano << " de dano.\n";
+            if(rand()%101 >= 60){
+                player.get_jogador_classe()->receber_dano(inimigo.get_ataqueBase());
+                cout << "O " << inimigo.get_entidade_nome() << " se concentrou muito para o ataque e te acertou um golpe que ignorou toda sua defesa.\nVoce sofreu " << inimigo.get_ataqueBase() << " de dano.\n";
+            }
+            else{
+                int dano = inimigo.Dano_ataque(*player.get_jogador_classe());
+                player.get_jogador_classe()->receber_dano(dano);
+                cout << "Voce sofreu " << dano << " de dano.\n";
+            }
             system("pause");
 
             if (player.get_jogador_classe()->get_vidaBase() <= 0) {
@@ -157,7 +164,7 @@ void inicio(){
     cout << "";
 }
 
-void cidade(Jogador& player, vector<Item> mercado){
+void cidade(Jogador& player, vector<Item>& mercado){
     int item;
     bool flag = true;
     bool flag2 = true;
@@ -174,13 +181,17 @@ void cidade(Jogador& player, vector<Item> mercado){
         switch(escolha){
             case 1: //mercado 
                 do{
-                    cout << "Digite o numero correspondente do item que deseja comprar. Ou digite X para sair do mercado" << endl;  
+                    cout << "Seus status: ";
+                    mostrar_status_jogador(player);
+                    player.mochila_mostrar();
+                    cout << "Digite o numero correspondente do item que deseja comprar. Ou digite 7 para sair do mercado" << endl;  
                     mostrar_itens_mercado(mercado);
                     cin >> item;
+                    int dinheiroJogador = player.get_jogador_dinheiro();
                     switch (item){
                         case 1:
                             if(player.get_jogador_dinheiro() >= mercado.at(0).get_preco() && !player.mochila_cheia()){
-                                player.set_jogador_dinheiro(player.get_jogador_dinheiro() - mercado.at(0).get_preco());
+                                player.set_jogador_dinheiro(dinheiroJogador - mercado.at(0).get_preco());
                                 player.mochila_inserir(mercado.at(0));
                                 cout << "Voce comprou " << mercado.at(0).get_item_nome() << endl;
                             }
@@ -193,7 +204,7 @@ void cidade(Jogador& player, vector<Item> mercado){
                         
                         case 2:
                             if(player.get_jogador_dinheiro() >= mercado.at(1).get_preco() && !player.mochila_cheia()){
-                                player.set_jogador_dinheiro(player.get_jogador_dinheiro() - mercado.at(1).get_preco());
+                                player.set_jogador_dinheiro(dinheiroJogador - mercado.at(1).get_preco());
                                 player.mochila_inserir(mercado.at(1));
                                 cout << "Voce comprou " << mercado.at(1).get_item_nome() << endl;
                             }
@@ -206,7 +217,7 @@ void cidade(Jogador& player, vector<Item> mercado){
 
                         case 3:
                             if(player.get_jogador_dinheiro() >= mercado.at(2).get_preco() && !player.mochila_cheia()){
-                                player.set_jogador_dinheiro(player.get_jogador_dinheiro() - mercado.at(2).get_preco());
+                                player.set_jogador_dinheiro(dinheiroJogador - mercado.at(2).get_preco());
                                 player.mochila_inserir(mercado.at(2));
                                 cout << "Voce comprou " << mercado.at(2).get_item_nome() << endl;
                             }
@@ -216,8 +227,52 @@ void cidade(Jogador& player, vector<Item> mercado){
                             system("pause");
                             system("cls");
                             break;
-
+                        case 4:
+                            if(player.get_jogador_dinheiro() >= mercado.at(3).get_preco() && !player.mochila_cheia()){
+                                player.set_jogador_dinheiro(dinheiroJogador - mercado.at(3).get_preco());
+                                player.mochila_inserir(mercado.at(3));
+                                cout << "Voce comprou " << mercado.at(3).get_item_nome() << endl;
+                            }
+                            else{
+                                cout << "Voce nao pode comprar esse item." << endl;
+                            }
+                            system("pause");
+                            system("cls");
+                            break;
+                        case 5:
+                            if(player.get_jogador_dinheiro() >= mercado.at(4).get_preco() && !player.mochila_cheia()){
+                                player.set_jogador_dinheiro(dinheiroJogador - mercado.at(4).get_preco());
+                                player.mochila_inserir(mercado.at(4));
+                                cout << "Voce comprou " << mercado.at(4).get_item_nome() << endl;
+                            }
+                            else{
+                                cout << "Voce nao pode comprar esse item." << endl;
+                            }
+                            system("pause");
+                            system("cls");
+                            break;
+                        case 6:
+                            if(player.get_jogador_dinheiro() >= mercado.at(5).get_preco() && !player.mochila_cheia()){
+                                player.set_jogador_dinheiro(dinheiroJogador - mercado.at(5).get_preco());
+                                player.mochila_inserir(mercado.at(5));
+                                cout << "Voce comprou " << mercado.at(5).get_item_nome() << endl;
+                            }
+                            else{
+                                cout << "Voce nao pode comprar esse item." << endl;
+                            }
+                            system("pause");
+                            system("cls");
+                            break;
+                        case 7:
+                            cout << "Saindo do mercado..." << endl;
+                            system("pause");
+                            system("cls");
+                            flag2 = false;
+                            break;
                         default:
+                            cout << "Digite uma opcao valida! " << endl;
+                            system("pause");
+                            system("cls");
                             break;
                     }
                 }while(flag2);

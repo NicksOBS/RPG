@@ -9,7 +9,7 @@ Esqueleto::Esqueleto(): Inimigo{10, 4, 2}{//Iniciado como valores de teste (vida
 }
 
 float Esqueleto::ataque()const{
-    return ataqueBase * ((2+rand()%11)/10); //BALANCEAR
+    return ataqueBase * ((2+rand()%9)/10); //BALANCEAR
 }
 
 int Esqueleto::Dano_ataque(Entidade& vitima)const{

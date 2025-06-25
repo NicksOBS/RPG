@@ -44,84 +44,84 @@ int main() {
                 break;
             }
             case 2: {
-                jogador = new Guerreiro();
-                cout << "Voce escolheu ser um guerreiro!" << endl;
-                cout << "Que a sua lamina nunca falhe, " << nome << "." << endl;
+                    jogador = new Guerreiro();
+                    cout << "Voce escolheu ser um guerreiro!" << endl;
+                    cout << "Que a sua lamina nunca falhe, " << nome << "." << endl;
+                    break;
+                }
+                default:
+                    throw invalid_argument("Escolha invalida. Por favor, escolha 1 ou 2.");
+            }
+        } catch (const exception& e) {
+            cerr << "Erro: " << e.what() << endl;
+        }
+
+        cidade();
+
+        cout << ""
+        while (!dungeon.dungeon_concluida()) {
+            Sala* sala = dungeon.get_sala_atual();
+            cout << "\nVoce esta em: " << sala->descricao << endl;
+
+            if (sala->inimigo != nullptr) {
+                cout << "Um inimigo aparece: " << sala->inimigo->getNome() << "!" << endl;
+                
+                sala->inimigo->receberDano(jogador->ataque());
+                if (sala->inimigo->getVida() <= 0) {
+                    cout << "Voce derrotou o inimigo!" << endl;
+                    delete sala->inimigo;
+                    sala->inimigo = nullptr;
+                }
+            }
+
+            if (!sala->caminhos.empty()) {
+                cout << "Escolha para onde ir:" << endl;
+                for (size_t i = 0; i < sala->caminhos.size(); ++i) {
+                    cout << i + 1 << ". " << sala->caminhos[i]->descricao << endl;
+                }
+                int escolha;
+                cin >> escolha;
+                dungeon.mover_para_sala(escolha);
+            } else {
+                cout << "Nao ha mais caminhos disponiveis." << endl;
                 break;
             }
-            default:
-                throw invalid_argument("Escolha invalida. Por favor, escolha 1 ou 2.");
-        }
-    } catch (const exception& e) {
-        cerr << "Erro: " << e.what() << endl;
-    }
-
-    cidade();
-    while (!dungeon.dungeon_concluida()) {
-        Sala* sala = dungeon.get_sala_atual();
-        cout << "\nVoce esta em: " << sala->descricao << endl;
-
-        if (sala->inimigo != nullptr) {
-            cout << "Um inimigo aparece: " << sala->inimigo->getNome() << "!" << endl;
-            
-            sala->inimigo->receberDano(jogador->ataque());
-            if (sala->inimigo->getVida() <= 0) {
-                cout << "Voce derrotou o inimigo!" << endl;
-                delete sala->inimigo;
-                sala->inimigo = nullptr;
-            }
         }
 
-        if (!sala->caminhos.empty()) {
-            cout << "Escolha para onde ir:" << endl;
-            for (size_t i = 0; i < sala->caminhos.size(); ++i) {
-                cout << i + 1 << ". " << sala->caminhos[i]->descricao << endl;
-            }
-            int escolha;
-            cin >> escolha;
-            dungeon.mover_para_sala(escolha);
-        } else {
-            cout << "Nao ha mais caminhos disponiveis." << endl;
-            break;
-        }
-    }
+        cout << "Parabens! Voce concluiu a primeira dungeon!" << endl;
+        
+        eventoaleatorio();
 
-    cout << "Parabens! Voce concluiu a primeira dungeon!" << endl;
-    
-    eventoaleatorio();
-
-    cidade();
+        cidade();
 
 
 
-    
 
-
-    return 0;*/
+        return 0;*/
 
     Entidade *m = new Mago();
-    Entidade *g = new Guerreiro();
+    //Entidade *g = new Guerreiro();
     Jogador p1{"Jogador 1", m};
-    Jogador p2{"Jogador 2", g}; 
+    //Jogador p2{"Jogador 2", g}; 
 
-    cout << " batalha "<< endl;
-    cout << "Jogador 1 vs Esqueleto" << endl;
-    cout << endl;
+    //cout << " batalha "<< endl;
+    //cout << "Jogador 1 vs Esqueleto" << endl;
+    //cout << endl;
 
     //Inimigo* esqueleto_inimigo = new Esqueleto();
 
     //batalha(p1, *esqueleto_inimigo);
 
-    //vector <Item> mercado = inicializa_mercado();
-    //p1.set_jogador_dinheiro(100);
-    //cidade(p1, mercado);
+    vector <Item> mercado = inicializa_mercado();
+    p1.set_jogador_dinheiro(100);
+    cidade(p1, mercado);
 
     //Dungeon* dungeon = new DungeonFacil();
     //explorar_dungeon(p1, *dungeon);
     //delete dungeon;
 
-    DungeonFacil dungeon;
-    explorar_dungeon(p1, dungeon);
+    //DungeonFacil dungeon;
+    //explorar_dungeon(p1, dungeon);
 
 
 }
