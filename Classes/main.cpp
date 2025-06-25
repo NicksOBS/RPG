@@ -30,5 +30,7 @@ int main(){
     // p1.mochila_remover(item1);
     // p1.mochila_mostrar();
     // cout << "DANO: " << p1.get_jogador_classe()->ataque();//da pra atacar usando a funcao get_jogador_classe
+    p1.set_jogador_dinheiro(100);
+    eventoAleatorio(p1);
     mostrar_status_batalha(p1, *p2.get_jogador_classe());
 }
