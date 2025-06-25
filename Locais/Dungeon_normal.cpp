@@ -4,7 +4,7 @@ DungeonNormal::DungeonNormal(){
     tipo = NORMAL; 
     recompensa = 40.0; //valores a serem estudados
     idas = 3; 
-    multiplicador = 1;
+    multiplicador = 1.0;
     //adversario = new{}; pensar em um inimigo
 } 
 

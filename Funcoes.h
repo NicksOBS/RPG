@@ -7,8 +7,25 @@
 #include "Entidades/Entidade.h"
 #include "Locais/Dungeon.h"
 #include "Entidades/Jogador.h"
+#include <vector>
+#include "Itens/Item.h"
 
 using namespace std;
+
+vector<Item>& inicializa_mercado(){
+    /*vector<Item> mercado;
+    mercado.insert()
+    mercado.insert()
+    mercado.insert()*/
+}
+
+void mostrar_itens_mercado(vector<Item>& mercado){
+    int i = 1;
+    for(auto item : mercado){
+        cout << i << ". " << item.get_item_nome() << endl;
+        i++;
+    }
+}
 
 void mostrar_status_entidade(Entidade& entidade){
     cout <<"NOME: " << entidade.get_entidade_nome() << "VIDA: " << entidade.get_vidaBase() << endl << "DEFESA: " << entidade.get_defesaBase() << endl << "ATAQUE: " << entidade.get_ataqueBase();
@@ -51,11 +68,23 @@ void cidade(Jogador& player){
     cout << "Voce esta na cidade, aqui voce pode se recuperar de suas batalhas ou visitar nossos mercados, talvez encontre algo que te ajude nas suas proximas batalhas." << endl; //mensagem explicando oq pode fazer na cidade
     cout << "Onde voce deseja ir?" << endl << "1 - Mercado" << endl << "2 - Estalagem" << endl << "3 - Continuar" << endl;
     int escolha;
+    int item;
     bool flag = true;
+    bool flag2 = true;
     do{
         cin >> escolha;
         switch(escolha){
             case 1: //mercado 
+                do{
+                    switch (item){
+                        case 1:
+                            /* code */
+                            break;
+                        
+                        default:
+                            break;
+                    }
+                }while(flag2);
                 break;
             case 2: //curar a vida
                 if(player.get_jogador_dinheiro() < 10){//valor do custo da acao (a mudar)
@@ -78,21 +107,25 @@ void cidade(Jogador& player){
             default:
                 cout << "Escolha uma opcao valilda" << endl;
                 flag = true;
+                break;
         }
     }while(flag);
 }
 
 void eventoAleatorio(Jogador& player){
     srand(time(NULL));
-    if(rand()%101 > 80){ //20%
-        cout << "" << endl;//
-        if(player.get_jogador_dinheiro() < 5){
-            cout << "" << endl;//
+    if(rand()%101 > 5){ //20%
+        cout << "Durante sua jornada, um grupo de assaltantes de aborda!!" << endl;//
+        if(player.get_jogador_dinheiro() < 80){
+            cout << "Por sorte, voce consegue esconder as poucas moedas que ainda te restam. Eles te deixam ir embora sem levar nada." << endl;//
             return;
         }
         else{
+            int valor = player.get_jogador_dinheiro()*0.25;
             player.set_jogador_dinheiro(player.get_jogador_dinheiro()*0.75);
-            cout << "" << endl;
+            cout << "Voce tenta resistir, mas percebe que estao em uma grande vantagem numerica e opta por deixar levar o que querem." << endl;
+            system("pause");
+            cout << "Os bandidos levam " << valor << " de suas moedas." << endl;
             return;
         }
     }
