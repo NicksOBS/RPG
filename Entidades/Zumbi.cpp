@@ -7,13 +7,13 @@ Zumbi::Zumbi() : Inimigo{15, 3, 5} { // Vida alta, defesa alta, ataque baixo
 }
 
 float Zumbi::ataque() const {
-    return ataqueBase * ((3 + rand() % 9) / 10.0); // Entre 30% e 90%
+    return ataqueBase * ((40 + rand() % 101) / 100.0f); // Entre 30% e 90%
 }
 
 int Zumbi::Dano_ataque(Entidade& vitima) const {
     try {
         int dano = ataque() + arma->get_dano() - vitima.get_defesaBase();
-        if (dano < 0) throw std::out_of_range("Ataque bloqueado");
+        if (dano <= 0) throw std::out_of_range("Ataque bloqueado");
         return dano;
     } catch (...) {
         return 0;

@@ -8,13 +8,13 @@ Goblin::Goblin() : Inimigo{8, 6, 2} { // Vida baixa, ataque alto, defesa baixa
 }
 
 float Goblin::ataque() const {
-    return ataqueBase * 1;//((5 + rand() % 11) / 10.0); // Entre 50% e 150%
+    return ataqueBase * ((30 + rand() % 101) / 100.0f); // Entre 50% e 150%
 }
 
 int Goblin::Dano_ataque(Entidade& vitima) const {
     try {
         int dano = ataque() + arma->get_dano() - vitima.get_defesaBase();
-        if (dano < 0) throw std::out_of_range("Ataque bloqueado");
+        if (dano <= 0) throw std::out_of_range("Ataque bloqueado");
         return dano;
     } catch (...) {
         return 0;

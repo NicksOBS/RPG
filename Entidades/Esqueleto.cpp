@@ -9,13 +9,13 @@ Esqueleto::Esqueleto(): Inimigo{10, 4, 2}{//Iniciado como valores de teste (vida
 }
 
 float Esqueleto::ataque()const{
-    return ataqueBase * ((2+rand()%9)/10); //BALANCEAR
+    return ataqueBase * ((60+rand()%101)/100.f); //BALANCEAR
 }
 
 int Esqueleto::Dano_ataque(Entidade& vitima)const{
     try{
     int dano = ataque()+arma->get_dano() - vitima.get_defesaBase();
-    if(dano < 0) throw out_of_range("ATAQUE BLOQUEADO\n");//pontos de defesa sao maiores que o dano sofrido
+    if(dano <= 0) throw out_of_range("ATAQUE BLOQUEADO\n");//pontos de defesa sao maiores que o dano sofrido
     return dano;
     }
     catch(out_of_range &exce){

@@ -6,13 +6,13 @@ LordeDasSombras::LordeDasSombras() : Inimigo{60, 12, 8} {
 }
 
 float LordeDasSombras::ataque() const {
-    return ataqueBase * ((7 + rand() % 11) / 10.0); // 70% a 170%
+    return ataqueBase * ((70 + rand() % 101) / 100.0f); // 70% a 170%
 }
 
 int LordeDasSombras::Dano_ataque(Entidade& vitima) const {
     try {
         int dano = ataque() - vitima.get_defesaBase();
-        if (dano < 0) throw std::out_of_range("Ataque bloqueado");
+        if (dano <= 0) throw std::out_of_range("Ataque bloqueado");
         return dano;
     } catch (...) {
         return 0;

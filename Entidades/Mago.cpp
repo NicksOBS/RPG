@@ -3,14 +3,14 @@
 #include <iostream>
 using namespace std;
 
-Mago::Mago(): Entidade{25, 4, 3}{ //vida, ataque, defesa
+Mago::Mago(): Entidade{50, 4, 3}{ //vida, ataque, defesa
     Entidade_nome = "Mago";
     arma = new Graveto_do_aprendiz();
     entidade_tipo = MAGO;
 }
 
 float Mago::ataque()const{ //Mago pode dar entre 50 e 130% de seu dano base
-    return ataqueBase *((50+(rand()%91))/100.0f);;
+    return ataqueBase *((50+(rand()%101))/100.0f);;
 }
 
 int Mago::Dano_ataque(Entidade& vitima)const{

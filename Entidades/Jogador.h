@@ -22,6 +22,8 @@ class Jogador{
         ~Jogador(){ delete classe;}
 
         string get_jogador_nome()const{ return jogador_nome; }
+        void set_jogador_nome(string n){ jogador_nome = n; }
+        void set_jogador_classe(Entidade& novaClasse) { classe = &novaClasse; }
         Entidade* get_jogador_classe()const{ return classe; }
         string get_jogador_classe_nome()const{ return classe->get_entidade_nome(); }
         int get_jogador_dinheiro()const{ return dinheiro; }

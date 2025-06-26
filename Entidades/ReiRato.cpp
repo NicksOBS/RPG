@@ -6,13 +6,13 @@ ReiRato::ReiRato() : Inimigo{20, 5, 4} {
 }
 
 float ReiRato::ataque() const {
-    return ataqueBase * ((4 + rand() % 9) / 10.0); // 40% a 120%
+    return ataqueBase * ((30 + rand() % 101) / 100.0f); // 40% a 120%
 }
 
 int ReiRato::Dano_ataque(Entidade& vitima) const {
     try {
         int dano = ataque() - vitima.get_defesaBase();
-        if (dano < 0) throw std::out_of_range("Ataque bloqueado");
+        if (dano <= 0) throw std::out_of_range("Ataque bloqueado");
         return dano;
     } catch (...) {
         return 0;

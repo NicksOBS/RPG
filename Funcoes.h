@@ -33,77 +33,61 @@ vector<Item> inicializa_mercado() {
 void mostrar_itens_mercado(vector<Item>& mercado){
     int i = 1;
     for(auto item : mercado){
-        cout << i << ". " << item.get_item_nome() << " (" << item.get_preco() << ")" << endl;
+        std::cout << i << ". " << item.get_item_nome() << " (" << item.get_preco() << ")" << endl;
         i++;
     }
-    cout << "7. Vender" << endl << "8. Sair" << endl;
+    std::cout << "7. Vender" << endl << "8. Sair" << endl;
 }
 
 void mostrar_status_jogador(Jogador& player){
-    cout <<"\nNOME: " << player.get_jogador_nome() << "\nVIDA: " << player.get_jogador_classe()->get_vidaBase() << "/" << player.get_jogador_classe()->get_vidaMaxima() << endl << "DEFESA: " << player.get_jogador_classe()->get_defesaBase() << endl << "ATAQUE: " << player.get_jogador_classe()->get_ataqueBase() << endl << "DINHEIRO: " << player.get_jogador_dinheiro() << endl;
+    std::cout <<"\nNOME: " << player.get_jogador_nome() << "\nVIDA: " << player.get_jogador_classe()->get_vidaBase() << "/" << player.get_jogador_classe()->get_vidaMaxima() << endl << "DEFESA: " << player.get_jogador_classe()->get_defesaBase() << endl << "ATAQUE: " << player.get_jogador_classe()->get_ataqueBase() << endl << "DINHEIRO: " << player.get_jogador_dinheiro() << endl;
 }
 
 void mostrar_status_batalha(Jogador& player, Entidade& inimigo){ //recebe um jogador e um inimigo como parametro
-    cout << "\tSEUS STATUS:" << "\t\t\tSTATUS DO INIMIGO:" << endl;
-    cout <<"NOME: " << player.get_jogador_nome() << "\t\t\tNOME: " << inimigo.get_entidade_nome() << endl;
-    cout <<"VIDA: " << player.get_jogador_classe()->get_vidaBase() << "/" << player.get_jogador_classe()->get_vidaMaxima() << "\t\t\tVIDA: " << inimigo.get_vidaBase() << "/" << inimigo.get_vidaMaxima() << endl;
-    cout <<"DEFESA: " << player.get_jogador_classe()->get_defesaBase() << "\t\t\tDEFESA: " << inimigo.get_defesaBase() <<  endl;
-    cout <<"ATAQUE: " << player.get_jogador_classe()->get_ataqueBase() << "\t\t\tATAQUE: " << inimigo.get_ataqueBase() << endl;
+    std::cout << "\tSEUS STATUS:" << "\t\t\tSTATUS DO INIMIGO:" << endl;
+    std::cout <<"NOME: " << player.get_jogador_nome() << "\t\t\tNOME: " << inimigo.get_entidade_nome() << endl;
+    std::cout <<"VIDA: " << player.get_jogador_classe()->get_vidaBase() << "/" << player.get_jogador_classe()->get_vidaMaxima() << "\t\t\tVIDA: " << inimigo.get_vidaBase() << "/" << inimigo.get_vidaMaxima() << endl;
+    std::cout <<"DEFESA: " << player.get_jogador_classe()->get_defesaBase() << "\t\t\tDEFESA: " << inimigo.get_defesaBase() <<  endl;
+    std::cout <<"ATAQUE: " << player.get_jogador_classe()->get_ataqueBase() << "\t\t\tATAQUE: " << inimigo.get_ataqueBase() << endl;
 }
 
-/*void batalha(Jogador& player, Dungeon& dungeon){ 
-    bool p_turno = true, d_turno = false; // o jogador comeca jogando 
-    int turno = 1;
-    while(player.get_jogador_classe()->get_vidaBase() > 0 && dungeon.get_adversario()->get_vidaBase() > 0){
-        cout << "\t\tTURNO: " << turno;
-        mostrar_status_batalha(player, *dungeon.get_adversario());
-
-        if(p_turno){
-            //o jogador faz as coisas dele aqui
-            p_turno = false;
-            d_turno = true;
-        }
-        if(d_turno){
-            //o inimigo faz as coisas dele aqui
-            p_turno = true;
-            d_turno = false;
-        }
-        system("cls"); //LIMPA A TELA DEPOIS DE CADA TURNO
-    }
-}*/
 
 bool batalha(Jogador& player, Inimigo& inimigo) {
     bool p_turno = true, d_turno = false;
     int turno = 1;
 
     while (player.get_jogador_classe()->get_vidaBase() > 0 && inimigo.get_vidaBase() > 0) {
-        cout << "\t\tTURNO: " << turno << endl;
+        std::cout << "\t\tTURNO: " << turno << endl;
         mostrar_status_batalha(player, inimigo);
         bool flag = true;
         if (p_turno) {
-            do{
-                cout << "Qual sua proxima acao? " << endl << "1. Usar algum item de sua mochila/n2. Atacar" << endl;
+            do {
+                std::cout << "\n>Qual sua proxima acao? " << endl << "1. Usar algum item de sua mochila\n" << "2. Atacar\n" << endl;
                 int escolha;
-                cin >> escolha;
-                if(escolha == 1){
+                std::cin >> escolha;
+                
+                if (escolha == 1) {
                     int itemUsar;
                     player.mochila_mostrar();
-                    cin >> itemUsar;
-                    if(itemUsar > 0 && itemUsar <= player.get_jogador_mochila().get_inventario_lista().size()){
-                        
+                    std::cin >> itemUsar;
+                    if (itemUsar > 0 && itemUsar <= player.get_jogador_mochila().get_inventario_lista().size()) {
+                        //player.get_jogador_mochila().get_inventario_lista().at(itemUsar-1)->usar_pocao(player);
                     }
-                }
-                if(escolha == 2){
-                    !flag;
-                    cout << "Voce ataca!\n";
+                } else if (escolha == 2) {
+                    flag = false; // Encerra o do-while
+                    std::cout << "\n>Voce ataca!\n";
                     int dano = player.get_jogador_classe()->Dano_ataque(inimigo);
                     inimigo.receber_dano(dano);
-                    cout << "Causou " << dano << " de dano.\n";
+                    std::cout << "\n>Causou " << dano << " de dano.\n";
                     system("pause");
+                } else {
+                    std::cout << "Opcao invalida. Tente novamente.\n";
                 }
-            }while(flag);
+
+            } while (flag);
+
             if (inimigo.get_vidaBase() <= 0) {
-                cout << "\n Voce venceu a batalha!\n";
+                std::cout << "\n Voce venceu a batalha!\n";
                 return true;
             }
 
@@ -112,20 +96,19 @@ bool batalha(Jogador& player, Inimigo& inimigo) {
         }
 
         if (d_turno) {
-            cout << "O inimigo ataca!\n";
-            if(rand()%101 >= 60){
+            std::cout << "O inimigo ataca!\n";
+            if (rand() % 101 >= 60) {
                 player.get_jogador_classe()->receber_dano(inimigo.get_ataqueBase());
-                cout << "O " << inimigo.get_entidade_nome() << " se concentrou muito para o ataque e te acertou um golpe que ignorou toda sua defesa.\nVoce sofreu " << inimigo.get_ataqueBase() << " de dano.\n";
-            }
-            else{
+                std::cout << ">O " << inimigo.get_entidade_nome() << " se concentrou muito para o ataque e te acertou um golpe que ignorou toda sua defesa.\nVoce sofreu " << inimigo.get_ataqueBase() << " de dano.\n";
+            } else {
                 int dano = inimigo.Dano_ataque(*player.get_jogador_classe());
                 player.get_jogador_classe()->receber_dano(dano);
-                cout << "Voce sofreu " << dano << " de dano.\n";
+                std::cout << "\n>Voce sofreu " << dano << " de dano.\n";
             }
             system("pause");
 
             if (player.get_jogador_classe()->get_vidaBase() <= 0) {
-                cout << "\n Voce foi derrotado...\n";
+                std::cout << "\n >Voce foi derrotado...\n";
                 return false;
             }
 
@@ -137,104 +120,130 @@ bool batalha(Jogador& player, Inimigo& inimigo) {
         system("cls");
     }
 
-    return false; // caso de erro de lógica
+    return false; // caso de erro de logica
 }
 
 
 
-void explorar_dungeon_facil(Jogador& player, DungeonFacil& dungeon) {
+
+bool explorar_dungeon_facil(Jogador& player, DungeonFacil& dungeon) {
     while (!dungeon.dungeon_concluida()) {
-        cout << "\n=====================\n";
+        std::cout << "\n============================================================================\n";
         dungeon.get_sala_atual()->mostrar_opcoes();
 
         if (dungeon.get_sala_atual()->inimigo != nullptr) {
-            cout << "\nInimigo encontrado: " << dungeon.get_sala_atual()->inimigo->get_entidade_nome() << "\n";
-            cout << "Iniciando batalha...\n";
+            std::cout << "\nInimigo encontrado: " << dungeon.get_sala_atual()->inimigo->get_entidade_nome() << "\n";
+            std::cout << "Iniciando batalha...\n";
             bool venceu = batalha(player, *dungeon.get_sala_atual()->inimigo);
 
             if (venceu) {
                 dungeon.get_sala_atual()->inimigo = nullptr;
             } else {
-                cout << "\n A aventura termina aqui...\n";
-                return; // Sai da exploração
+                std::cout << "\n A aventura termina aqui...\n";
+                return false; // Sai da exploração
             }
         }
 
         if (dungeon.get_sala_atual()->temChefe && dungeon.get_sala_atual()->inimigo == nullptr) {
-            cout << "\n Voce derrotou o chefe da dungeon! Parabens!\n";
+            std::cout << "\n Voce derrotou o chefe da dungeon! Parabens!\n";
+            player.set_jogador_dinheiro(40);
+            cout << ">Voce ganhou 40 de vida!\n";
+            return true;
             break;
         }
 
-        cout << "\nEscolha seu caminho:\n";
-        int opcao;
-        cin >> opcao;
-        dungeon.mover_para_sala(opcao);
+        if (dungeon.get_sala_atual()->caminhos.size() == 1) {
+    dungeon.mover_para_sala(1); // caminho único
+    cout << "\nSeguindo automaticamente para a próxima sala...\n";
+    system("pause");
+} else if (dungeon.get_sala_atual()->caminhos.size() > 1) {
+    int opcao;
+    cin >> opcao;
+    dungeon.mover_para_sala(opcao);
+}
+
+
     }
 }
 
-void explorar_dungeon_normal(Jogador& player, DungeonNormal& dungeon) {
+bool explorar_dungeon_normal(Jogador& player, DungeonNormal& dungeon) {
     while (!dungeon.dungeon_concluida()) {
-        cout << "\n=====================\n";
+        std::cout << "\n============================================================================\n";
         dungeon.get_sala_atual()->mostrar_opcoes();
 
         if (dungeon.get_sala_atual()->inimigo != nullptr) {
-            cout << "\nInimigo encontrado: " << dungeon.get_sala_atual()->inimigo->get_entidade_nome() << "\n";
-            cout << "Iniciando batalha...\n";
+            std::cout << "\nInimigo encontrado: " << dungeon.get_sala_atual()->inimigo->get_entidade_nome() << "\n";
+            std::cout << "Iniciando batalha...\n";
             bool venceu = batalha(player, *dungeon.get_sala_atual()->inimigo);
 
             if (venceu) {
                 dungeon.get_sala_atual()->inimigo = nullptr;
             } else {
-                cout << "\n A aventura termina aqui...\n";
-                return; // Sai da exploração
+                std::cout << "\n A aventura termina aqui...\n";
+                return false; // Sai da exploração
             }
         }
 
         if (dungeon.get_sala_atual()->temChefe && dungeon.get_sala_atual()->inimigo == nullptr) {
-            cout << "\n Voce derrotou o chefe da dungeon! Parabens!\n";
+            std::cout << "\n Voce derrotou o chefe da dungeon! Parabens!\n";
+            player.set_jogador_dinheiro(40);
+            cout << ">Voce ganhou 40 de vida!\n";
+            return true;
             break;
         }
 
-        cout << "\nEscolha seu caminho:\n";
-        int opcao;
-        cin >> opcao;
-        dungeon.mover_para_sala(opcao);
+        if (dungeon.get_sala_atual()->caminhos.size() == 1) {
+    dungeon.mover_para_sala(1); // caminho único
+    cout << "\nSeguindo automaticamente para a próxima sala...\n";
+    system("pause");
+} else if (dungeon.get_sala_atual()->caminhos.size() > 1) {
+    int opcao;
+    cin >> opcao;
+    dungeon.mover_para_sala(opcao);
+}
+
+
     }
 }
 
-void explorar_dungeon_dificil(Jogador& player, DungeonDificil& dungeon) {
+bool explorar_dungeon_dificil(Jogador& player, DungeonDificil& dungeon) {
     while (!dungeon.dungeon_concluida()) {
-        cout << "\n=====================\n";
+        std::cout << "\n============================================================================\n";
         dungeon.get_sala_atual()->mostrar_opcoes();
 
         if (dungeon.get_sala_atual()->inimigo != nullptr) {
-            cout << "\nInimigo encontrado: " << dungeon.get_sala_atual()->inimigo->get_entidade_nome() << "\n";
-            cout << "Iniciando batalha...\n";
+            std::cout << "\nInimigo encontrado: " << dungeon.get_sala_atual()->inimigo->get_entidade_nome() << "\n";
+            std::cout << "Iniciando batalha...\n";
             bool venceu = batalha(player, *dungeon.get_sala_atual()->inimigo);
 
             if (venceu) {
                 dungeon.get_sala_atual()->inimigo = nullptr;
             } else {
-                cout << "\n A aventura termina aqui...\n";
-                return; // Sai da exploração
+                std::cout << "\n A aventura termina aqui...\n";
+                return false; // Sai da exploração
             }
         }
 
         if (dungeon.get_sala_atual()->temChefe && dungeon.get_sala_atual()->inimigo == nullptr) {
-            cout << "\n Voce derrotou o chefe da dungeon! Parabens!\n";
+            std::cout << "\n Voce derrotou o chefe da dungeon! Parabens!\n";
+            player.set_jogador_dinheiro(40);
+            cout << ">Voce ganhou 40 de vida!\n";
+            return true;
             break;
         }
 
-        cout << "\nEscolha seu caminho:\n";
-        int opcao;
-        cin >> opcao;
-        dungeon.mover_para_sala(opcao);
-    }
+        if (dungeon.get_sala_atual()->caminhos.size() == 1) {
+    dungeon.mover_para_sala(1); // caminho único
+    cout << "\nSeguindo automaticamente para a próxima sala...\n";
+    system("pause");
+} else if (dungeon.get_sala_atual()->caminhos.size() > 1) {
+    int opcao;
+    cin >> opcao;
+    dungeon.mover_para_sala(opcao);
 }
 
 
-void inicio(){
-    cout << "";
+    }
 }
 
 void cidade(Jogador& player, vector<Item>& mercado){
@@ -242,33 +251,33 @@ void cidade(Jogador& player, vector<Item>& mercado){
     bool flag = true;
     bool flag2 = true;
     do{
-    cout << "Seus status: ";
+    std::cout << "Seus status: ";
     mostrar_status_jogador(player);
     player.mochila_mostrar();
-    cout << "\n\n";
-    cout << "Voce esta na cidade, aqui voce pode se recuperar de suas batalhas ou visitar nossos mercados, talvez encontre algo que te ajude nas suas proximas batalhas." << endl; //mensagem explicando oq pode fazer na cidade
-    cout << "Onde voce deseja ir?" << endl << "1 - Mercado" << endl << "2 - Estalagem (Aqui voce vai poder descansar e curar toda a sua vida por 30 moedas)" << endl << "3 - Continuar" << endl;
+    std::cout << "\n\n";
+    std::cout << ">Voce esta na cidade, aqui voce pode se recuperar de suas batalhas ou visitar nossos mercados, talvez encontre algo que te ajude nas suas proximas batalhas." << endl; //mensagem explicando oq pode fazer na cidade
+    std::cout << "\nOnde voce deseja ir?" << endl << "1 - Mercado" << endl << "2 - Estalagem (Aqui voce vai poder descansar e curar toda a sua vida por 30 moedas)" << endl << "3 - Continuar" << endl;
 
     int escolha;
         cin >> escolha;
         switch(escolha){
             case 1: //mercado 
                 do{
-                    cout << "Seus status: ";
+                    std::cout << "Seus status: ";
                     mostrar_status_jogador(player);
                     player.mochila_mostrar();
-                    cout << "Digite o numero correspondente do item que deseja comprar, 7 para vender algum item, ou digite 8 para sair do mercado" << endl;  
+                    std::cout << "Digite o numero correspondente do item que deseja comprar, 7 para vender algum item, ou digite 8 para sair do mercado" << endl;  
                     mostrar_itens_mercado(mercado);
                     cin >> item;
-                    switch (item){
+                    switch(item){
                         case 1:
                             if(player.get_jogador_dinheiro() >= mercado.at(0).get_preco() && !player.mochila_cheia()){
                                 player.set_jogador_dinheiro(-mercado.at(0).get_preco());
                                 player.mochila_inserir(mercado.at(0));
-                                cout << "Voce comprou " << mercado.at(0).get_item_nome() << endl;
+                                std::cout << "Voce comprou " << mercado.at(0).get_item_nome() << endl;
                             }
                             else{
-                                cout << "Voce nao pode comprar esse item." << endl;
+                                std::cout << "Voce nao pode comprar esse item." << endl;
                             }
                             system("pause");
                             system("cls");
@@ -278,10 +287,10 @@ void cidade(Jogador& player, vector<Item>& mercado){
                             if(player.get_jogador_dinheiro() >= mercado.at(1).get_preco() && !player.mochila_cheia()){
                                 player.set_jogador_dinheiro(-mercado.at(1).get_preco());
                                 player.mochila_inserir(mercado.at(1));
-                                cout << "Voce comprou " << mercado.at(1).get_item_nome() << endl;
+                                std::cout << "Voce comprou " << mercado.at(1).get_item_nome() << endl;
                             }
                             else{
-                                cout << "Voce nao pode comprar esse item." << endl;
+                                std::cout << "Voce nao pode comprar esse item." << endl;
                             }
                             system("pause");
                             system("cls");
@@ -291,10 +300,10 @@ void cidade(Jogador& player, vector<Item>& mercado){
                             if(player.get_jogador_dinheiro() >= mercado.at(2).get_preco() && !player.mochila_cheia()){
                                 player.set_jogador_dinheiro(- mercado.at(2).get_preco());
                                 player.mochila_inserir(mercado.at(2));
-                                cout << "Voce comprou " << mercado.at(2).get_item_nome() << endl;
+                                std::cout << "Voce comprou " << mercado.at(2).get_item_nome() << endl;
                             }
                             else{
-                                cout << "Voce nao pode comprar esse item." << endl;
+                                std::cout << "Voce nao pode comprar esse item." << endl;
                             }
                             system("pause");
                             system("cls");
@@ -303,10 +312,10 @@ void cidade(Jogador& player, vector<Item>& mercado){
                             if(player.get_jogador_dinheiro() >= mercado.at(3).get_preco() && !player.mochila_cheia()){
                                 player.set_jogador_dinheiro(- mercado.at(3).get_preco());
                                 player.mochila_inserir(mercado.at(3));
-                                cout << "Voce comprou " << mercado.at(3).get_item_nome() << endl;
+                                std::cout << "Voce comprou " << mercado.at(3).get_item_nome() << endl;
                             }
                             else{
-                                cout << "Voce nao pode comprar esse item." << endl;
+                                std::cout << "Voce nao pode comprar esse item." << endl;
                             }
                             system("pause");
                             system("cls");
@@ -315,10 +324,10 @@ void cidade(Jogador& player, vector<Item>& mercado){
                             if(player.get_jogador_dinheiro() >= mercado.at(4).get_preco() && !player.mochila_cheia()){
                                 player.set_jogador_dinheiro(-mercado.at(4).get_preco());
                                 player.mochila_inserir(mercado.at(4));
-                                cout << "Voce comprou " << mercado.at(4).get_item_nome() << endl;
+                                std::cout << "Voce comprou " << mercado.at(4).get_item_nome() << endl;
                             }
                             else{
-                                cout << "Voce nao pode comprar esse item." << endl;
+                                std::cout << "Voce nao pode comprar esse item." << endl;
                             }
                             system("pause");
                             system("cls");
@@ -327,10 +336,10 @@ void cidade(Jogador& player, vector<Item>& mercado){
                             if(player.get_jogador_dinheiro() >= mercado.at(5).get_preco() && !player.mochila_cheia()){
                                 player.set_jogador_dinheiro(-mercado.at(5).get_preco());
                                 player.mochila_inserir(mercado.at(5));
-                                cout << "Voce comprou " << mercado.at(5).get_item_nome() << endl;
+                                std::cout << "Voce comprou " << mercado.at(5).get_item_nome() << endl;
                             }
                             else{
-                                cout << "Voce nao pode comprar esse item." << endl;
+                                std::cout << "Voce nao pode comprar esse item." << endl;
                             }
                             system("pause");
                             system("cls");
@@ -339,36 +348,36 @@ void cidade(Jogador& player, vector<Item>& mercado){
                             player.mochila_mostrar();
                             bool flag3 = true;
                             if(player.mochila_vazia()){
-                                cout << "Voce nao tem nada para vender" << endl;
+                                std::cout << "Voce nao tem nada para vender" << endl;
                                 flag3 = false;
                                 break;
                             }
                             int escolha;
                             do{
-                                cout << "Qual item deseja vender?" << endl;
+                                std::cout << "Qual item deseja vender?" << endl;
                                 cin >> escolha;
                                     if(escolha >= 1 && escolha <= player.get_jogador_mochila().get_inventario_lista().size()){
-                                        cout << "Voce vendeu " << player.get_jogador_mochila().get_inventario_lista().at(escolha-1)->get_item_nome() << endl;
+                                        std::cout << "Voce vendeu " << player.get_jogador_mochila().get_inventario_lista().at(escolha-1)->get_item_nome() << endl;
                                         player.set_jogador_dinheiro(player.get_jogador_mochila().get_inventario_lista().at(escolha-1)->get_preco());
                                         player.mochila_remover(*player.get_jogador_mochila().get_inventario_lista().at(escolha-1));
                                         player.mochila_mostrar();
-                                        cout << "Dinheiro: " << player.get_jogador_dinheiro();
+                                        std::cout << "Dinheiro: " << player.get_jogador_dinheiro();
                                         flag3 = false;
                                     }else{
-                                        cout << "Insira o numero de algum item do seu inventario" << endl;
+                                        std::cout << "Insira o numero de algum item do seu inventario" << endl;
                                         flag3 = true;
                                     }
                             }while(flag3);
                             break;
                         }
                         case 8:
-                            cout << "Saindo do mercado..." << endl;
+                            std::cout << "Saindo do mercado..." << endl;
                             system("pause");
                             system("cls");
                             flag2 = false;
                             break;
                         default:
-                            cout << "Digite uma opcao valida! " << endl;
+                            std::cout << "Digite uma opcao valida! " << endl;
                             system("pause");
                             system("cls");
                             break;
@@ -377,24 +386,24 @@ void cidade(Jogador& player, vector<Item>& mercado){
                 break;
             case 2: //curar a vida
                 if(player.get_jogador_dinheiro() < 10){//valor do custo da acao (a mudar)
-                    cout << "Voce nao tem dinhiro suficiente" << endl;
+                    std::cout << "Voce nao tem dinhiro suficiente" << endl;
                     flag = true;   
                 }else{
                     player.set_jogador_dinheiro(- 10); //valor do custo da acao (a mudar)
                     player.get_jogador_classe()->buffVida(player.get_jogador_classe()->get_vidaMaxima() - player.get_jogador_classe()->get_vidaBase()); //cura a vida do jogador para a vida maxima da classe (faz uma subtracão entre a vida maxima da classe e vida atual)
                     flag = true;
-                    cout << "Agora voce esta completamente revigorado e pronto para sua proxima batalha!" << endl;
+                    std::cout << "Agora voce esta completamente revigorado e pronto para sua proxima batalha!" << endl;
                     system("pause");
                 }
                 break;
             case 3:
-                cout << "Continuando sua jornada..." << endl;
+                std::cout << "Continuando sua jornada..." << endl;
                 system("pause");
                 system("cls");
                 flag = false;
                 break;
             default:
-                cout << "Escolha uma opcao valilda" << endl;
+                std::cout << "Escolha uma opcao valilda" << endl;
                 flag = true;
                 break;
         }
@@ -404,17 +413,17 @@ void cidade(Jogador& player, vector<Item>& mercado){
 void eventoAleatorio(Jogador& player){
     srand(time(NULL));
     if(rand()%101 > 80){ //20%
-        cout << "Durante sua jornada, um grupo de assaltantes te aborda!!" << endl;//
+        std::cout << "Durante sua jornada, um grupo de assaltantes te aborda!!" << endl;//
         if(player.get_jogador_dinheiro() < 80){
-            cout << "Por sorte, voce consegue esconder as poucas moedas que ainda te restam. Eles te deixam ir embora sem levar nada." << endl;//
+            std::cout << "Por sorte, voce consegue esconder as poucas moedas que ainda te restam. Eles te deixam ir embora sem levar nada." << endl;//
             return;
         }
         else{
             int valor = player.get_jogador_dinheiro()*0.25;
             player.set_jogador_dinheiro(player.get_jogador_dinheiro()*0.75);
-            cout << "Voce tenta resistir, mas percebe que estao em uma grande vantagem numerica e opta por deixar levar o que querem." << endl;
+            std::cout << "Voce tenta resistir, mas percebe que estao em uma grande vantagem numerica e opta por deixar levar o que querem." << endl;
             system("pause");
-            cout << "Os bandidos levam " << valor << " de suas moedas." << endl;
+            std::cout << "Os bandidos levam " << valor << " de suas moedas." << endl;
             return;
         }
     }

@@ -12,7 +12,7 @@ float CavaleiroCorrompido::ataque() const {
 int CavaleiroCorrompido::Dano_ataque(Entidade& vitima) const {
     try {
         int dano = ataque() - vitima.get_defesaBase();
-        if (dano < 0) throw std::out_of_range("Ataque bloqueado");
+        if (dano <= 0) throw std::out_of_range("Ataque bloqueado");
         return dano;
     } catch (...) {
         return 0;

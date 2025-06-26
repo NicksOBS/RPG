@@ -2,13 +2,13 @@
 #include <stdexcept>
 
 float Inimigo::ataque() const {
-    return ataqueBase * ((2 + rand() % 9) / 10.0); // entre 20% e 100% do ataqueBase
+    return ataqueBase * ((20 + rand() % 101) / 100.0f); // entre 20% e 100% do ataqueBase
 }
 
 int Inimigo::Dano_ataque(Entidade& vitima) const {
     try {
         int dano = ataque() + arma->get_dano() - vitima.get_defesaBase();
-        if (dano < 0) throw std::out_of_range("Ataque bloqueado");
+        if (dano <= 0) throw std::out_of_range("Ataque bloqueado");
         return dano;
     } catch (...) {
         return 0;
