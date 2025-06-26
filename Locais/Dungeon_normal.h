@@ -1,19 +1,3 @@
-/*#ifndef DUNGEON_NORMAL_H
-#define DUNGEON_NORMAL_H
-#include "Dungeon.h"
-
-class DungeonNormal : public Dungeon{
-    public:
-        DungeonNormal(); 
-        ~DungeonNormal(){ delete adversario; };
-        float get_dungeon_recompensa();
-        void dungeon_finalizar(){ idas--; multiplicador/=2;};
-        Entidade* dungeon_get_inimigo(){ return adversario;};
-        int dungeon_get_idas(){ return idas; };
-        Inimigo* get_adversario(){return adversario;};
-};
-#endif*/
-
 #ifndef DUNGEON_NORMAL_H
 #define DUNGEON_NORMAL_H
 
@@ -22,46 +6,48 @@ class DungeonNormal : public Dungeon{
 #include "../Entidades/Esqueleto.h"
 #include "../Entidades/Zumbi.h"
 #include "../Entidades/CavaleiroCorrompido.h"
-
+#include <vector>
+using namespace std;
 
 class DungeonNormal : public Dungeon {
 private:
     Sala* salaAtual;
     Sala* salaInicial;
+    vector<Sala*> salas; // Controle de salas para destruição segura
 
 public:
     DungeonNormal() {
-        tipo = NORMAL; 
-        recompensa = 40.0; //valores a serem estudados
-        idas = 3; 
+        tipo = NORMAL;
+        recompensa = 40.0;
+        idas = 2;
         multiplicador = 1.0;
         criar_salas();
     }
 
     ~DungeonNormal() {
-        delete salaInicial;
+        for (Sala* s : salas) {
+            delete s;
+        }
     }
 
     void criar_salas() {
-        Sala* inicio = new Sala("Entrada das Catacumbas");
-        Sala* sala1 = new Sala("Galeria de Ossos");
-        Sala* sala2 = new Sala("Caminho Enlameado");
-        Sala* sala3 = new Sala("Santuário Abandonado");
-        Sala* sala4 = new Sala("Salão das Almas Perdidas");
-        Sala* salaChefe = new Sala("Trono Esquecido");
+        Sala* inicio = new Sala("Entrada da Catacumba"); salas.push_back(inicio);
+        Sala* sala1 = new Sala("Corredor dos Lamentos"); salas.push_back(sala1);
+        Sala* sala2 = new Sala("Sala das Sombras"); salas.push_back(sala2);
+        Sala* sala3 = new Sala("Cripta Abandonada"); salas.push_back(sala3);
+        Sala* salaChefe = new Sala("Salão do Guardião"); salas.push_back(salaChefe);
 
         sala1->inimigo = new Zumbi();
-        sala2->inimigo = new Esqueleto();
-        sala3->inimigo = new Esqueleto();
-        sala4->inimigo = new Zumbi();
-        salaChefe->inimigo = new CavaleiroCorrompido(); //Chefe 2
+        sala2->inimigo = new Zumbi();
+        sala3->inimigo = new Zumbi();
+        salaChefe->inimigo = new CavaleiroCorrompido();
+
         salaChefe->temChefe = true;
 
         inicio->caminhos = {sala1, sala2};
         sala1->caminhos = {sala3};
-        sala2->caminhos = {sala4};
+        sala2->caminhos = {sala3};
         sala3->caminhos = {salaChefe};
-        sala4->caminhos = {salaChefe};
 
         salaInicial = inicio;
         salaAtual = inicio;
@@ -75,7 +61,7 @@ public:
         if (escolha >= 1 && escolha <= salaAtual->caminhos.size()) {
             salaAtual = salaAtual->caminhos[escolha - 1];
         } else {
-            cout << "Escolha inválida!\n";
+            cout << "Escolha invalida!\n";
         }
     }
 
@@ -84,8 +70,32 @@ public:
     }
 
     void resetar() {
-        delete salaInicial;
+        for (Sala* s : salas) {
+            delete s;
+        }
+        salas.clear();
         criar_salas();
+    }
+
+    float get_dungeon_recompensa() const override {
+        return recompensa * multiplicador;
+    }
+
+    void dungeon_finalizar() override {
+        idas--;
+        multiplicador /= 2;
+    }
+
+    Entidade* dungeon_get_inimigo() const override {
+        return salaAtual->inimigo;
+    }
+
+    int dungeon_get_idas() const override {
+        return idas;
+    }
+
+    Inimigo* get_adversario() const override {
+        return salaAtual->inimigo;
     }
 };
 

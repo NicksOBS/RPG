@@ -142,7 +142,7 @@ bool batalha(Jogador& player, Inimigo& inimigo) {
 
 
 
-void explorar_dungeon(Jogador& player, DungeonFacil& dungeon) {
+void explorar_dungeon_facil(Jogador& player, DungeonFacil& dungeon) {
     while (!dungeon.dungeon_concluida()) {
         cout << "\n=====================\n";
         dungeon.get_sala_atual()->mostrar_opcoes();
@@ -172,7 +172,65 @@ void explorar_dungeon(Jogador& player, DungeonFacil& dungeon) {
     }
 }
 
+void explorar_dungeon_normal(Jogador& player, DungeonNormal& dungeon) {
+    while (!dungeon.dungeon_concluida()) {
+        cout << "\n=====================\n";
+        dungeon.get_sala_atual()->mostrar_opcoes();
 
+        if (dungeon.get_sala_atual()->inimigo != nullptr) {
+            cout << "\nInimigo encontrado: " << dungeon.get_sala_atual()->inimigo->get_entidade_nome() << "\n";
+            cout << "Iniciando batalha...\n";
+            bool venceu = batalha(player, *dungeon.get_sala_atual()->inimigo);
+
+            if (venceu) {
+                dungeon.get_sala_atual()->inimigo = nullptr;
+            } else {
+                cout << "\n A aventura termina aqui...\n";
+                return; // Sai da exploração
+            }
+        }
+
+        if (dungeon.get_sala_atual()->temChefe && dungeon.get_sala_atual()->inimigo == nullptr) {
+            cout << "\n Voce derrotou o chefe da dungeon! Parabens!\n";
+            break;
+        }
+
+        cout << "\nEscolha seu caminho:\n";
+        int opcao;
+        cin >> opcao;
+        dungeon.mover_para_sala(opcao);
+    }
+}
+
+void explorar_dungeon_dificil(Jogador& player, DungeonDificil& dungeon) {
+    while (!dungeon.dungeon_concluida()) {
+        cout << "\n=====================\n";
+        dungeon.get_sala_atual()->mostrar_opcoes();
+
+        if (dungeon.get_sala_atual()->inimigo != nullptr) {
+            cout << "\nInimigo encontrado: " << dungeon.get_sala_atual()->inimigo->get_entidade_nome() << "\n";
+            cout << "Iniciando batalha...\n";
+            bool venceu = batalha(player, *dungeon.get_sala_atual()->inimigo);
+
+            if (venceu) {
+                dungeon.get_sala_atual()->inimigo = nullptr;
+            } else {
+                cout << "\n A aventura termina aqui...\n";
+                return; // Sai da exploração
+            }
+        }
+
+        if (dungeon.get_sala_atual()->temChefe && dungeon.get_sala_atual()->inimigo == nullptr) {
+            cout << "\n Voce derrotou o chefe da dungeon! Parabens!\n";
+            break;
+        }
+
+        cout << "\nEscolha seu caminho:\n";
+        int opcao;
+        cin >> opcao;
+        dungeon.mover_para_sala(opcao);
+    }
+}
 
 
 void inicio(){
@@ -279,22 +337,27 @@ void cidade(Jogador& player, vector<Item>& mercado){
                             break;
                         case 7:{
                             player.mochila_mostrar();
+                            bool flag3 = true;
                             if(player.mochila_vazia()){
                                 cout << "Voce nao tem nada para vender" << endl;
+                                flag3 = false;
                                 break;
                             }
-                            bool flag3 = true;
                             int escolha;
                             do{
                                 cout << "Qual item deseja vender?" << endl;
                                 cin >> escolha;
-                                    if(escolha > 0 && escolha < player.get_jogador_mochila().get_inventario_lista().size()){
-                                        cout << "Voce vendeu " << player.get_jogador_mochila().get_inventario_lista().at(escolha)->get_item_nome() << endl;
-                                        player.set_jogador_dinheiro(player.get_jogador_mochila().get_inventario_lista().at(escolha)->get_preco());
-                                        player.mochila_remover(*player.get_jogador_mochila().get_inventario_lista().at(escolha));
-                                        !flag3;
-                                    }else
+                                    if(escolha >= 1 && escolha <= player.get_jogador_mochila().get_inventario_lista().size()){
+                                        cout << "Voce vendeu " << player.get_jogador_mochila().get_inventario_lista().at(escolha-1)->get_item_nome() << endl;
+                                        player.set_jogador_dinheiro(player.get_jogador_mochila().get_inventario_lista().at(escolha-1)->get_preco());
+                                        player.mochila_remover(*player.get_jogador_mochila().get_inventario_lista().at(escolha-1));
+                                        player.mochila_mostrar();
+                                        cout << "Dinheiro: " << player.get_jogador_dinheiro();
+                                        flag3 = false;
+                                    }else{
+                                        cout << "Insira o numero de algum item do seu inventario" << endl;
                                         flag3 = true;
+                                    }
                             }while(flag3);
                             break;
                         }

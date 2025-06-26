@@ -12,12 +12,22 @@
 #include "../Entidades/Guerreiro.h"
 #include "../Funcoes.h"
 #include "../Entidades/Esqueleto.h"
+#include "../Entidades/Zumbi.h"
+#include "../Entidades/Goblin.h"
+#include "../Entidades/LordeDasSombras.h"
+#include "../Entidades/CavaleiroCorrompido.h"
+#include "../Entidades/Inimigo.h"
+#include "../Entidades/Entidade.h"
+#include "../Entidades/ReiRato.h"
+
+
 
 using namespace std;
 int main() {
-    /*string nome;
+    string nome;
     int escolha_classe;
 
+    cout << "=============== Tales from Eldoria ===============" << endl << endl;
     cout << "Digite seu nome, Fragmentado: ";
     cin >> nome;
 
@@ -41,89 +51,78 @@ int main() {
                 jogador = new Mago();
                 cout << "Voce escolheu o caminho do Mago!" << endl;
                 cout << "Que as nevoas do arcano o(a) guiem, " << nome << "." << endl;
+                //Add Graveto do aprendiz ao inventario
+                jogador->equipar_arma(new Graveto_do_aprendiz());
                 break;
             }
             case 2: {
-                    jogador = new Guerreiro();
-                    cout << "Voce escolheu ser um guerreiro!" << endl;
-                    cout << "Que a sua lamina nunca falhe, " << nome << "." << endl;
-                    break;
-                }
-                default:
-                    throw invalid_argument("Escolha invalida. Por favor, escolha 1 ou 2.");
-            }
-        } catch (const exception& e) {
-            cerr << "Erro: " << e.what() << endl;
-        }
-
-        cidade();
-
-        cout << "\nOs murmdurios na cidade falam de uma criatura abissal que infesta os esgotos: o Rei Rato. Sua presenca ameca Leyndell. Aventure-se na Dungeon Facil e purifique este mal!" << endl;
-        
-        while (!dungeon.dungeon_concluida()) {
-            Sala* sala = dungeon.get_sala_atual();
-            cout << "\nVoce esta em: " << sala->descricao << endl;
-
-            if (sala->inimigo != nullptr) {
-                cout << "Um inimigo aparece: " << sala->inimigo->getNome() << "!" << endl;
-                
-                sala->inimigo->receberDano(jogador->ataque());
-                if (sala->inimigo->getVida() <= 0) {
-                    cout << "Voce derrotou o inimigo!" << endl;
-                    delete sala->inimigo;
-                    sala->inimigo = nullptr;
-                }
-            }
-
-            if (!sala->caminhos.empty()) {
-                cout << "Escolha para onde ir:" << endl;
-                for (size_t i = 0; i < sala->caminhos.size(); ++i) {
-                    cout << i + 1 << ". " << sala->caminhos[i]->descricao << endl;
-                }
-                int escolha;
-                cin >> escolha;
-                dungeon.mover_para_sala(escolha);
-            } else {
-                cout << "Nao ha mais caminhos disponiveis." << endl;
+                jogador = new Guerreiro();
+                cout << "Voce escolheu ser um guerreiro!" << endl;
+                cout << "Que a sua lamina nunca falhe, " << nome << "." << endl;
+                //Add Espada enferrujada ao inventario
+                jogador->equipar_arma(new Espada_enferrujada());
                 break;
             }
+            default:
+                throw invalid_argument("Escolha invalida. Por favor, escolha 1 ou 2.");
         }
-
-        cout << "Parabens! Voce concluiu a primeira dungeon!" << endl;
-        
-        eventoaleatorio();
+    } catch (const exception& e) {
+        cerr << "Erro: " << e.what() << endl;
+    }
 
         cidade();
 
+        cout << "Apos sua pequena jornada pelo centro da cidade, voce decide seguir seu caminho." << endl;
+        cout << "Passando por uma rua paralela, voce comeca a ouvir estranhos sussuros vindos de um beco escuro." << endl;
+        cout << "Voce decide investigar, e ao entrar no beco, encontra uma entrada subterranea." << endl;
+        cout << "Bem vindo ao esgoto de Leyndell, " << nome << "." << endl;
+        
+        DungeonFacil dungeon;
+        explorar_dungeon_facil(jogador, dungeon);
+
+        cout << "Apos explorar o esgoto, voce recebe aplausos e parabenizacoes dos moradores da cidade por derrotar o rei rato." << endl;
+        cout << "Quando voce estava prestes a sair da cidade, uma senhora misteriosa aparece e lhe faz uma suplica." << endl;
+        cout << "Por favor, ajude-nos! Vi que voce e um grande aventureiro, nosso heroi da vila, meu filho...foi capturado pelo lorde das sombras maligno! Ele o levou para as catacumbas, e precisamos de alguem forte para resgata-lo!" << endl;
+        cout << "Voce decide ajudar a senhora, e segue para as catacumbas." << endl;
+        
+        DungeonNormal dungeon2;
+        explorar_dungeon_normal(jogador, dungeon2);
+
+        cout << "Apos derrotar o cavaleiro corrompido em uma batalha voraz, voce consegue livrar cavaleiro heroi da vila da sua maldicao." << endl;
+        cout << "\"Obrigado, por me tirar da influencia do Lorde das sombras, vejo que voce eh um aventureiro forte, eu nao posso derrotar o lorde das sombras, ja estou muito fraco, mas voce pode! Ele esta escondido em uma dungeon mais profunda, e se voce conseguir derrotar ele, podera salvar toda Eldoria!\"" << endl;
+        cout << "Com um senso de justica que nunca havia sentido antes, voce decide seguir o conselho do cavaleiro heroi e ir atras do lorde das sombras." << endl;
+        cout << "Voce segue para a dungeon mais profunda, onde o lorde das sombras esta escondido." << endl;
+        
+        DungeonDificil dungeon3;
+        explorar_dungeon_dificil(jogador, dungeon3);
+
+        cout << "O que? eu sendo derrotado por um mero mortal? Eu sou o lorde das sombras, o senhor de Eldoria!" << endl;
+        cout << "Voce entao da o ataque derradeiro direto no coracao do lorde das sombras, e ele cai morto no chao." << endl;
+        cout << "Uma sensacao de alivio e paz toma conta de voce, voce pensa na frase do Lorde das sombras, voce o Fragmentado, derrotou o Lorde das Sombras, gracas a sua dedicacao ao objetivo e gracas a sua coragem." << endl;
+        cout << "Parabens heroi de Eldoria, voce salvou o mundo.";
+        cout << "Fim do jogo!" << endl;
 
 
 
-        return 0;*/
-
-    Entidade *m = new Mago();
+    /*Entidade *m = new Mago();
     //Entidade *g = new Guerreiro();
     Jogador p1{"Jogador 1", m};
     //Jogador p2{"Jogador 2", g}; 
-
-    //cout << " batalha "<< endl;
-    //cout << "Jogador 1 vs Esqueleto" << endl;
-    //cout << endl;
-
-    //Inimigo* esqueleto_inimigo = new Esqueleto();
-
-    //batalha(p1, *esqueleto_inimigo);
 
     vector <Item> mercado = inicializa_mercado();
     p1.set_jogador_dinheiro(100);
     cidade(p1, mercado);
 
-    //Dungeon* dungeon = new DungeonFacil();
-    //explorar_dungeon(p1, *dungeon);
-    //delete dungeon;
 
-    //DungeonFacil dungeon;
-    //explorar_dungeon(p1, dungeon);
+    DungeonFacil dungeon;
+    explorar_dungeon_facil(p1, dungeon);
 
+    DungeonNormal dungeon2;
+    explorar_dungeon_normal(p1, dungeon2);
 
+    DungeonDificil dungeon3;
+    explorar_dungeon_dificil(p1, dungeon3);
+    cout << "Obrigado por jogar!" << endl;
+    */
+    return 0;
 }
-
