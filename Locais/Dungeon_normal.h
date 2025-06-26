@@ -35,7 +35,7 @@ public:
         Sala* sala1 = new Sala("Corredor dos Lamentos"); salas.push_back(sala1);
         Sala* sala2 = new Sala("Sala das Sombras"); salas.push_back(sala2);
         Sala* sala3 = new Sala("Cripta Abandonada"); salas.push_back(sala3);
-        Sala* salaChefe = new Sala("Salão do Guardião"); salas.push_back(salaChefe);
+        Sala* salaChefe = new Sala("mausoleu do caido"); salas.push_back(salaChefe);
 
         sala1->inimigo = new Zumbi();
         sala2->inimigo = new Zumbi();

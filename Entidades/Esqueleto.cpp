@@ -1,11 +1,11 @@
 #include "Esqueleto.h"
 #include <stdexcept>
 #include "Esqueleto.h"
-#include "../Armas/Espada_enferrujada.h"
+#include "../Armas/ArmaNULL.h"
 #include <stdexcept>
 Esqueleto::Esqueleto(): Inimigo{10, 4, 2}{//Iniciado como valores de teste (vida, ataque, defesa)
     Entidade_nome = "Esqueleto";
-    arma = new Espada_enferrujada();
+    arma = new ArmaNULL();
 }
 
 float Esqueleto::ataque()const{

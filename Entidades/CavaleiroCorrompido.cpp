@@ -1,8 +1,10 @@
 #include "CavaleiroCorrompido.h"
 #include <stdexcept>
+#include "../Armas/ArmaNULL.h"
 
-CavaleiroCorrompido::CavaleiroCorrompido() : Inimigo{35, 8, 6} {
+CavaleiroCorrompido::CavaleiroCorrompido() : Inimigo{25, 6, 4} {
     Entidade_nome = "Cavaleiro Corrompido";
+    arma = new ArmaNULL(); 
 }
 
 float CavaleiroCorrompido::ataque() const {

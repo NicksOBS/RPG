@@ -99,7 +99,7 @@ bool batalha(Jogador& player, Inimigo& inimigo) {
             std::cout << "O inimigo ataca!\n";
             if (rand() % 101 >= 60) {
                 player.get_jogador_classe()->receber_dano(inimigo.get_ataqueBase());
-                std::cout << ">O " << inimigo.get_entidade_nome() << " se concentrou muito para o ataque e te acertou um golpe que ignorou toda sua defesa.\nVoce sofreu " << inimigo.get_ataqueBase() << " de dano.\n";
+                std::cout << "\n>O " << inimigo.get_entidade_nome() << " se concentrou muito para o ataque e te acertou um golpe que ignorou toda sua defesa.\nVoce sofreu " << inimigo.get_ataqueBase() << " de dano.\n";
             } else {
                 int dano = inimigo.Dano_ataque(*player.get_jogador_classe());
                 player.get_jogador_classe()->receber_dano(dano);
@@ -145,16 +145,16 @@ bool explorar_dungeon_facil(Jogador& player, DungeonFacil& dungeon) {
         }
 
         if (dungeon.get_sala_atual()->temChefe && dungeon.get_sala_atual()->inimigo == nullptr) {
-            std::cout << "\n Voce derrotou o chefe da dungeon! Parabens!\n";
+            std::cout << "\n >Voce derrotou o chefe da dungeon! Parabens!\n";
             player.set_jogador_dinheiro(40);
-            cout << ">Voce ganhou 40 de vida!\n";
+            cout << ">Voce ganhou 40 de vida!\n\n";
             return true;
             break;
         }
 
         if (dungeon.get_sala_atual()->caminhos.size() == 1) {
     dungeon.mover_para_sala(1); // caminho único
-    cout << "\nSeguindo automaticamente para a próxima sala...\n";
+    cout << "\nSeguindo automaticamente para a proxima sala...\n";
     system("pause");
 } else if (dungeon.get_sala_atual()->caminhos.size() > 1) {
     int opcao;
@@ -185,16 +185,16 @@ bool explorar_dungeon_normal(Jogador& player, DungeonNormal& dungeon) {
         }
 
         if (dungeon.get_sala_atual()->temChefe && dungeon.get_sala_atual()->inimigo == nullptr) {
-            std::cout << "\n Voce derrotou o chefe da dungeon! Parabens!\n";
+            std::cout << "\n >Voce derrotou o chefe da dungeon! Parabens!\n";
             player.set_jogador_dinheiro(40);
-            cout << ">Voce ganhou 40 de vida!\n";
+            cout << ">Voce ganhou 40 de vida!\n\n";
             return true;
             break;
         }
 
         if (dungeon.get_sala_atual()->caminhos.size() == 1) {
     dungeon.mover_para_sala(1); // caminho único
-    cout << "\nSeguindo automaticamente para a próxima sala...\n";
+    cout << "\nSeguindo automaticamente para a proxima sala...\n";
     system("pause");
 } else if (dungeon.get_sala_atual()->caminhos.size() > 1) {
     int opcao;
@@ -225,16 +225,16 @@ bool explorar_dungeon_dificil(Jogador& player, DungeonDificil& dungeon) {
         }
 
         if (dungeon.get_sala_atual()->temChefe && dungeon.get_sala_atual()->inimigo == nullptr) {
-            std::cout << "\n Voce derrotou o chefe da dungeon! Parabens!\n";
+            std::cout << "\n >Voce derrotou o chefe da dungeon! Parabens!\n";
             player.set_jogador_dinheiro(40);
-            cout << ">Voce ganhou 40 de vida!\n";
+            cout << ">Voce ganhou 40 de vida!\n\n";
             return true;
             break;
         }
 
         if (dungeon.get_sala_atual()->caminhos.size() == 1) {
     dungeon.mover_para_sala(1); // caminho único
-    cout << "\nSeguindo automaticamente para a próxima sala...\n";
+    cout << "\nSeguindo automaticamente para a proxima sala...\n";
     system("pause");
 } else if (dungeon.get_sala_atual()->caminhos.size() > 1) {
     int opcao;
@@ -412,9 +412,9 @@ void cidade(Jogador& player, vector<Item>& mercado){
 
 void eventoAleatorio(Jogador& player){
     srand(time(NULL));
-    if(rand()%101 > 80){ //20%
+    if(rand()%101 > 70){ //20%
         std::cout << "Durante sua jornada, um grupo de assaltantes te aborda!!" << endl;//
-        if(player.get_jogador_dinheiro() < 80){
+        if(player.get_jogador_dinheiro() < 5){
             std::cout << "Por sorte, voce consegue esconder as poucas moedas que ainda te restam. Eles te deixam ir embora sem levar nada." << endl;//
             return;
         }

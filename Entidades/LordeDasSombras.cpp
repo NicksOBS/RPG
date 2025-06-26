@@ -1,8 +1,9 @@
 #include "LordeDasSombras.h"
 #include <stdexcept>
-
-LordeDasSombras::LordeDasSombras() : Inimigo{60, 12, 8} {
+#include "../Armas/ArmaNULL.h"
+LordeDasSombras::LordeDasSombras() : Inimigo{30, 10, 8} {
     Entidade_nome = "Lorde das Sombras";
+    arma = new ArmaNULL();
 }
 
 float LordeDasSombras::ataque() const {

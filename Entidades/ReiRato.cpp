@@ -1,8 +1,10 @@
 #include "ReiRato.h"
 #include <stdexcept>
+#include "../Armas/ArmaNULL.h"
 
 ReiRato::ReiRato() : Inimigo{20, 5, 4} {
     Entidade_nome = "Rei Rato";
+    arma = new ArmaNULL();
 }
 
 float ReiRato::ataque() const {

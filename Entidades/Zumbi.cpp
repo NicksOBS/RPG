@@ -1,9 +1,10 @@
 #include "Zumbi.h"
 #include <stdexcept>
+#include "../Armas/ArmaNULL.h" // Add this include for ArmaNULL
 
 Zumbi::Zumbi() : Inimigo{15, 3, 5} { // Vida alta, defesa alta, ataque baixo
     Entidade_nome = "Zumbi";
-    // arma = new ... (se quiser criar uma arma específica depois)
+    arma = new ArmaNULL(); // Initialize arma to a default null weapon
 }
 
 float Zumbi::ataque() const {
